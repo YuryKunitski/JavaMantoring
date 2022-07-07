@@ -38,7 +38,7 @@ public class SportStartUp implements SmartLifecycle {
 
       @Override
       protected void hookOnNext(Sport value) {
-        repository.save(value);
+        repository.save(value).subscribe();
         consumed++;
         if (consumed == limit) {
           consumed = 0;
@@ -56,4 +56,5 @@ public class SportStartUp implements SmartLifecycle {
   public boolean isRunning() {
     return false;
   }
+
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mentoring.sportapp.domain.Sport;
 import mentoring.sportapp.repository.SportRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -11,6 +12,10 @@ import reactor.core.publisher.Mono;
 public class SportService {
 
   private final SportRepository repository;
+
+  public Flux<Sport> getAll() {
+    return repository.findAll();
+  }
 
   public Mono<Boolean> isNameExist(String name) {
     return repository.existsByName(name);
@@ -24,5 +29,9 @@ public class SportService {
 
   public Mono<Sport> findByName(String name) {
     return repository.findByName(name);
+  }
+
+  public Mono<Void> deleteById(String id) {
+    return repository.deleteById(id);
   }
 }

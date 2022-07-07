@@ -3,7 +3,6 @@ package mentoring.sportapp.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mentoring.sportapp.domain.Sport;
-import mentoring.sportapp.repository.SportRepository;
 import mentoring.sportapp.service.SportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +23,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class SportController {
 
-  private final SportRepository repository;
   private final SportService service;
 
   @GetMapping("/all")
   public Flux<Sport> getAll() {
-    return repository.findAll();
+    return service.getAll();
   }
 
   @PostMapping("/{sportName}")
@@ -54,6 +52,6 @@ public class SportController {
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public Mono<Void> deleteById(@PathVariable String id) {
-    return repository.deleteById(id);
+    return service.deleteById(id);
   }
 }
