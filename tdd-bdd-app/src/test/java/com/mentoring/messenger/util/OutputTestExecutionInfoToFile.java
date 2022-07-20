@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
@@ -27,6 +28,12 @@ public class OutputTestExecutionInfoToFile implements AfterAllCallback, TestWatc
   @Override
   public void testFailed(ExtensionContext context, Throwable cause) {
     String testResult = context.getDisplayName() + " is failed.\n";
+    testResults.add(testResult);
+  }
+
+  @Override
+  public void testDisabled(ExtensionContext context, Optional<String> reason) {
+    String testResult = context.getDisplayName() + " is disabled.\n";
     testResults.add(testResult);
   }
 }

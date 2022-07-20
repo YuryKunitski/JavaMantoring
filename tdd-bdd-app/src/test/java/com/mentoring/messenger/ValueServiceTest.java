@@ -12,6 +12,8 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnJre;
+import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.InjectMocks;
@@ -30,6 +32,18 @@ class ValueServiceTest {
 
   @Test
   void getValueFromConsoleMock() {
+    String expected = "#{ValueName}";
+    openMocks(this);
+    when(scanner.nextLine()).thenReturn(expected);
+
+    String actual = service.getValueFromConsole();
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  @DisabledOnJre(JRE.JAVA_17)
+  void getValueFromConsole() {
     String expected = "#{ValueName}";
     openMocks(this);
     when(scanner.nextLine()).thenReturn(expected);
