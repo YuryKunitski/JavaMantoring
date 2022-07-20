@@ -1,4 +1,4 @@
-package com.mentoring.messenger;
+package com.mentoring.messenger.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -5,16 +5,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
+import com.mentoring.messenger.util.OutputTestExecutionInfoToFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+@ExtendWith(OutputTestExecutionInfoToFile.class)
 class ValueServiceTest {
 
   private final ValueService valueService = new ValueService();
