@@ -1,0 +1,10 @@
+getValueFromFileTempDir(Path) is successful.
+
+getValueFromFileMock() is successful.
+
+getValueFromConsoleMock() is successful.
+
+getValueFromConsoleDisabledOn17JDK() is disabled.
+
+saveValueIntoFileTempDir(Path) is successful.
+

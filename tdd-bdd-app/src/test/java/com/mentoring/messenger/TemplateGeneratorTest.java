@@ -2,6 +2,7 @@ package com.mentoring.messenger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.mentoring.messenger.generator.TemplateGenerator;
 import com.mentoring.messenger.util.Exclude;
 import com.mentoring.messenger.util.Include;
 import java.util.Collection;

@@ -1,5 +1,6 @@
 package com.mentoring.messenger;
 
+import com.mentoring.messenger.generator.TemplateGenerator;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.Rule;

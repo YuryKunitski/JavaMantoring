@@ -5,11 +5,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
+import com.mentoring.messenger.service.ValueService;
 import com.mentoring.messenger.util.OutputTestExecutionInfoToFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnJre;
@@ -43,7 +45,7 @@ class ValueServiceTest {
 
   @Test
   @DisabledOnJre(JRE.JAVA_17)
-  void getValueFromConsole() {
+  void getValueFromConsoleDisabledOn17JDK() {
     String expected = "#{ValueName}";
     openMocks(this);
     when(scanner.nextLine()).thenReturn(expected);
@@ -57,14 +59,15 @@ class ValueServiceTest {
   void getValueFromFileTempDir(@TempDir Path tempDir) throws IOException {
     String fileName = "testInputFile";
     Path tempPath = tempDir.resolve(String.format("%s.txt", fileName));
-    String expectedText = "#{ValueName}";
+    String expectedValue = "#{ValueName}";
+    String expectedText = String.format("value:%s", expectedValue);
     Files.writeString(tempPath, expectedText);
 
-    String actual = valueService.getValueFromFile(
+    Map<String, String> actual = valueService.getValueFromFile(
         String.format("%s/%s", tempPath.getParent(), fileName));
 
     assertAll(
-        () -> assertEquals(expectedText, actual),
+        () -> assertEquals(expectedValue, actual.get("value")),
         () -> assertTrue(Files.exists(tempPath), "File should exist"),
         () -> assertLinesMatch(Collections.singletonList(expectedText),
             Files.readAllLines(tempPath)));
@@ -73,13 +76,13 @@ class ValueServiceTest {
   @Test
   void getValueFromFileMock() throws IOException {
     String fileName = "testInputFile";
-    String expectedText = "#{ValueName}";
+    Map<String, String> expected = Collections.singletonMap("value", "#{ValueName}");
     ValueService service = mock(ValueService.class);
-    when(service.getValueFromFile(fileName)).thenReturn(expectedText);
+    when(service.getValueFromFile(fileName)).thenReturn(expected);
 
-    String actual = service.getValueFromFile(fileName);
+    Map<String, String> actual = service.getValueFromFile(fileName);
 
-    assertEquals(expectedText, actual);
+    assertEquals(expected, actual);
   }
 
   @Test

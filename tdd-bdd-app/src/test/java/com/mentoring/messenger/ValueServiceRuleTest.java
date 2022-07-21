@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.mentoring.messenger.service.ValueService;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
